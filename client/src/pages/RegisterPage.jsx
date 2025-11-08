@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { User, Mail, Lock, Calendar, MapPin, Heart, ArrowLeft, CheckCircle } from "lucide-react";
-import axios from "axios";
+import api from "../api/api";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -34,8 +34,9 @@ export default function RegisterPage() {
         setError("Specialization is required for doctor registration");
         return;
       }
-      const payload = { ...form, role };
-      const res = await axios.post("http://localhost:5000/api/auth/register", payload);
+  const payload = { ...form, role };
+  // Use central api instance so base URL and interceptors apply
+  const res = await api.post("/auth/register", payload);
       if (res.data?.verificationRequired) {
         navigate(`/verify-otp?email=${encodeURIComponent(form.email)}`);
         return;

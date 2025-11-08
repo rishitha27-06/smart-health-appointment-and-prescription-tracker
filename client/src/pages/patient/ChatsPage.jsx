@@ -36,7 +36,9 @@ export default function ChatsPage(){
   // socket.io realtime
   useEffect(()=>{
     const token = localStorage.getItem('token');
-    const SOCKET_BASE = (import.meta.env.VITE_API_BASE || 'http://localhost:5001');
+    // derive websocket URL from VITE_API_BASE (supports wss for https)
+    const base = (import.meta.env.VITE_API_BASE || 'https://smart-health-appointment-and-dgcd.onrender.com').replace(/\/$/, '');
+    const SOCKET_BASE = base.replace(/^http/, 'ws');
     const s = io(SOCKET_BASE, { auth: { token } });
     socketRef.current = s;
     s.on('message:new', (payload)=>{

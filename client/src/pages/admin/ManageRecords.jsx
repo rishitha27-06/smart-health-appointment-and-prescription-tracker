@@ -21,8 +21,8 @@ const ManageRecords = () => {
       try {
         // Fetch both lists at the same time
         const [doctorRes, patientRes] = await Promise.all([
-          api.get('/api/admin/doctors'), // We will create this backend route
-          api.get('/api/admin/patients')  // We will create this backend route
+          api.get('/admin/doctors'), // We will create this backend route
+          api.get('/admin/patients')  // We will create this backend route
         ]);
         
         setDoctors(doctorRes.data);
@@ -56,7 +56,7 @@ const ManageRecords = () => {
 
     try {
       // Use the 'userId' which is the '_id' from the userModel
-      await api.delete(`/api/admin/users/${userId}`); 
+  await api.delete(`/admin/users/${userId}`); 
       toast.success(`${userName} deleted successfully`);
 
       // Update state locally for a fast UI response

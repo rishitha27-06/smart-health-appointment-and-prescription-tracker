@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 // Get the base URL for your backend
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:5001';
+// Use VITE_API_BASE when provided; otherwise default to your Render backend URL.
+const API_BASE = import.meta.env.VITE_API_BASE || 'https://smart-health-appointment-and-dgcd.onrender.com';
+// axios will target the '/api' prefix on the backend; keep the '/api' here so callers use paths like '/auth/login'
 const API_URL = `${API_BASE}/api`;
 
 const api = axios.create({
